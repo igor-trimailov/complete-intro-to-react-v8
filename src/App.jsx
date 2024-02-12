@@ -1,21 +1,14 @@
-import React from "react";
 import { createRoot } from "react-dom";
-
-const Pet = (props) => {
-    return React.createElement("div", {}, [
-        React.createElement("h1", {}, props.name),
-        React.createElement("h2", {}, props.animal),
-        React.createElement("h2", {}, props.breed),
-    ]);
-};
+import Pet from "./Pet";
 
 const App = () => {
-    return React.createElement("div", {}, [
-        React.createElement("h1", {}, "Adopt Me!"),
-        React.createElement(Pet, { name: "Luna", animal: "Dog", breed: "Havanese" }),
-        React.createElement(Pet, { name: "Nacho", animal: "Cat", breed: "Tabby" }),
-        React.createElement(Pet, { name: "Garik", animal: "Bird", breed: "Cockatiel" }),
-    ]);
+    return (
+        <div>
+            <Pet name="Luna" animal="Dog" breed="Havanese" />
+            <Pet name="Nacho" animal="Cat" breed="Tabby" />
+            <Pet name="Garik" animal="Bird" breed="Cockatiel" />
+        </div>
+    );
 };
 
 const container = document.getElementById("root");
@@ -25,4 +18,4 @@ const container = document.getElementById("root");
 
 // this will opt into React 18 features
 const root = createRoot(container);
-root.render(React.createElement(App));
+root.render(<App />);
