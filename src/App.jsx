@@ -1,3 +1,6 @@
+import React from "react";
+import { createRoot } from "react-dom";
+
 const Pet = (props) => {
     return React.createElement("div", {}, [
         React.createElement("h1", {}, props.name),
@@ -21,5 +24,5 @@ const container = document.getElementById("root");
 // ReactDOM.render(container, <App />)
 
 // this will opt into React 18 features
-const root = ReactDOM.createRoot(container);
+const root = createRoot(container);
 root.render(React.createElement(App));
