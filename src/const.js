@@ -1,0 +1,1 @@
+export const HOST = "https://pets-v2.dev-apis.com";

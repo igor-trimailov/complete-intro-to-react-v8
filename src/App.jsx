@@ -1,21 +1,31 @@
-import { createRoot } from "react-dom";
-import Pet from "./Pet";
+import Details from "./components/Details";
+import SearchParams from "./components/SearchParams";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: Infinity,
+            cacheTime: Infinity,
+        },
+    },
+});
 
 const App = () => {
     return (
-        <div>
-            <Pet name="Luna" animal="Dog" breed="Havanese" />
-            <Pet name="Nacho" animal="Cat" breed="Tabby" />
-            <Pet name="Garik" animal="Bird" breed="Cockatiel" />
-        </div>
+        <BrowserRouter>
+            <QueryClientProvider client={queryClient}>
+                <header>
+                    <Link to="/">Adopt Me!</Link>
+                </header>
+                <Routes>
+                    <Route path="/details/:id" element={<Details />} />
+                    <Route path="/" element={<SearchParams />} />
+                </Routes>
+            </QueryClientProvider>
+        </BrowserRouter>
     );
 };
 
-const container = document.getElementById("root");
-
-// this will run React in legacy mode
-// ReactDOM.render(container, <App />)
-
-// this will opt into React 18 features
-const root = createRoot(container);
-root.render(<App />);
+export default App;
