@@ -6,6 +6,9 @@ module.exports = {
             backgroundImage: {
                 "pet-pattern": "url('/img/wallpaperA.jpg')",
             },
+            maxWidth: {
+                "9/20": "45%",
+            },
         },
     },
     plugins: [require("@tailwindcss/forms")],
