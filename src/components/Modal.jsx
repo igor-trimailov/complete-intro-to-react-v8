@@ -16,7 +16,12 @@ const Modal = ({ children }) => {
         };
     }, []);
 
-    return createPortal(<div>{children}</div>, elRef.current);
+    return createPortal(
+        <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-90">
+            {children}
+        </div>,
+        elRef.current,
+    );
 };
 
 export default Modal;

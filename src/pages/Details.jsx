@@ -1,11 +1,13 @@
-import { useContext, useState } from "react";
+import { lazy, useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import fetchPet from "../api/fetchPet";
 import Carousel from "../components/Carousel";
 import ErrorBoundary from "../components/ErrorBoundary";
-import Modal from "../components/Modal";
 import AdoptedPetContext from "../context/AdoptedPet";
+
+// this is just an example do not do this in real life
+const Modal = lazy(() => import("../components/Modal"));
 
 const Details = () => {
     const [showModal, setShowModal] = useState(false);
@@ -37,14 +39,18 @@ const Details = () => {
                 <h2>
                     {pet.animal} - {pet.breed} - {pet.city}, {pet.state}
                 </h2>
-                <button onClick={() => setShowModal(true)}> Adopt {pet.name}</button>
+                <button onClick={() => setShowModal(true)}>
+                    {" "}
+                    Adopt {pet.name}
+                </button>
                 <p>{pet.description}</p>
                 {showModal ? (
                     <Modal>
-                        <div>
-                            <h1>Would you like to adopt {pet.name}?</h1>
-                            <div className="buttons">
+                        <div className="mx-4 max-w-md rounded-3xl bg-pink-100 px-4 py-3 text-center">
+                            <h1 className="text-center text-4xl my-4">Would you like to adopt {pet.name}?</h1>
+                            <div className="mt-4 flex justify-center">
                                 <button
+                                    className="mr-4 inline-block rounded bg-blue-500 px-4 py-2 text-white last:mr-0 hover:bg-blue-600"
                                     onClick={() => {
                                         setAdoptedPet(pet);
                                         navigate("/");
@@ -52,7 +58,12 @@ const Details = () => {
                                 >
                                     Yes
                                 </button>
-                                <button onClick={() => setShowModal(false)}>No</button>
+                                <button
+                                    className="mr-4 inline-block rounded bg-blue-500 px-4 py-2 text-white last:mr-0 hover:bg-blue-600"
+                                    onClick={() => setShowModal(false)}
+                                >
+                                    No
+                                </button>
                             </div>
                         </div>
                     </Modal>
