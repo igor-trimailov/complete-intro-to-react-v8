@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
 import { HOST } from "../const";
 
-const Pet = ({ name, animal, breed, images, location, id }) => {
+interface PetProps {
+    name: string;
+    animal: Animal;
+    breed: string;
+    images: string[];
+    location: string;
+    id: number;
+}
+
+const Pet = ({ name, animal, breed, images, location, id }: PetProps) => {
     let hero = `${HOST}/pets/none.jpg`;
 
     if (images.length) {

@@ -1,6 +1,9 @@
+import { QueryFunction } from "@tanstack/react-query";
 import { HOST } from "../const";
 
-const fetchPet = async ({ queryKey }) => {
+const fetchPet: QueryFunction<PetAPIResponse, ["details", string]> = async ({
+    queryKey,
+}) => {
     const id = queryKey[1];
 
     const apiResponse = await fetch(`${HOST}/pets?id=${id}`);

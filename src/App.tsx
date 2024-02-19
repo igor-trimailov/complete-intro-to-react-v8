@@ -16,15 +16,15 @@ const Details = lazy(() => import("./pages/Details"));
 const SearchParams = lazy(() => import("./pages/SearchParams"));
 
 const App = () => {
-    const adoptedPet = useState(null);
+    const adoptedPet = useState<Pet | null>(null);
     return (
-        <div className="bg-pet-pattern m-0 p-0">
+        <div className="m-0 bg-pet-pattern p-0">
             <BrowserRouter>
                 <QueryClientProvider client={queryClient}>
                     <Suspense
                         fallback={
-                            <div className="items-center justify-center flex p-4">
-                                <h2 className="text-5xl animate-spin">🤮</h2>
+                            <div className="flex items-center justify-center p-4">
+                                <h2 className="animate-spin text-5xl">🤮</h2>
                             </div>
                         }
                     >
@@ -53,4 +53,3 @@ const App = () => {
 };
 
 export default App;
-5;

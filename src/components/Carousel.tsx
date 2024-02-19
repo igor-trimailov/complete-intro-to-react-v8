@@ -1,7 +1,11 @@
-import { Component } from "react";
+import { Component, MouseEvent } from "react";
 import { HOST } from "../const";
 
-class Carousel extends Component {
+interface CarouselProps {
+    images: string[];
+}
+
+class Carousel extends Component<CarouselProps> {
     state = {
         active: 0,
     };
@@ -10,10 +14,16 @@ class Carousel extends Component {
         images: [`${HOST}/pets/none.jpg`],
     };
 
-    handleIndexClick = (e) => {
-        this.setState({
-            active: +e.target.dataset.index,
-        });
+    handleIndexClick = (e: MouseEvent<HTMLElement>) => {
+        if (!(e.target instanceof HTMLElement)) {
+            return;
+        }
+
+        if (e.target.dataset.index) {
+            this.setState({
+                active: +e.target.dataset.index,
+            });
+        }
     };
 
     render() {
@@ -23,7 +33,7 @@ class Carousel extends Component {
         return (
             <div className="mt-1 flex h-96 items-center justify-around">
                 <img
-                    className="max-w-9/20 max-h-96"
+                    className="max-h-96 max-w-9/20"
                     src={images[active]}
                     alt="animal hero"
                 />

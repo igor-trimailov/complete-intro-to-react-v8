@@ -10,12 +10,16 @@ import AdoptedPetContext from "../context/AdoptedPet";
 const Modal = lazy(() => import("../components/Modal"));
 
 const Details = () => {
+    const { id } = useParams();
+    if (!id) {
+        throw new Error("id not supplied? why? what are you trying to do?");
+    }
+
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
-    // eslint-disable-next-line no-unused-vars
-    const [_, setAdoptedPet] = useContext(AdoptedPetContext);
-    const { id } = useParams();
     const results = useQuery(["details", id], fetchPet);
+
+    const [_, setAdoptedPet] = useContext(AdoptedPetContext);
 
     if (results.isError) {
         return <h2>Error!!!</h2>;
@@ -29,7 +33,10 @@ const Details = () => {
         );
     }
 
-    const pet = results.data.pets[0];
+    const pet = results?.data?.pets[0];
+    if (!pet) {
+        throw new Error("no pet lol..");
+    }
 
     return (
         <div className="details">
@@ -47,7 +54,9 @@ const Details = () => {
                 {showModal ? (
                     <Modal>
                         <div className="mx-4 max-w-md rounded-3xl bg-pink-100 px-4 py-3 text-center">
-                            <h1 className="text-center text-4xl my-4">Would you like to adopt {pet.name}?</h1>
+                            <h1 className="my-4 text-center text-4xl">
+                                Would you like to adopt {pet.name}?
+                            </h1>
                             <div className="mt-4 flex justify-center">
                                 <button
                                     className="mr-4 inline-block rounded bg-blue-500 px-4 py-2 text-white last:mr-0 hover:bg-blue-600"
@@ -73,10 +82,10 @@ const Details = () => {
     );
 };
 
-function DetailsErrorBoundary(props) {
+function DetailsErrorBoundary() {
     return (
         <ErrorBoundary>
-            <Details {...props} />
+            <Details />
         </ErrorBoundary>
     );
 }
