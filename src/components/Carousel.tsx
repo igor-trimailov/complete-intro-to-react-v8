@@ -33,6 +33,7 @@ class Carousel extends Component<CarouselProps> {
         return (
             <div className="mt-1 flex h-96 items-center justify-around">
                 <img
+                    data-testid="hero"
                     className="max-h-96 max-w-9/20"
                     src={images[active]}
                     alt="animal hero"
@@ -41,7 +42,8 @@ class Carousel extends Component<CarouselProps> {
                     {images.map((photo, index) => (
                         // eslint-disable-next-line
                         <img
-                            className={`m-4 inline-block h-24 w-24 cursor-pointer rounded-full border-2 border-gray-200 ${index === active ? "opacity-50" : ""}`}
+                            className={`m-4 inline-block h-24 w-24 cursor-pointer rounded-full border-2 border-gray-200 ${index === active ? "opacity-50" : ""} ${index === active ? "active" : ""}`}
+                            data-testid={`thumbnail-${index}`}
                             src={photo}
                             key={photo}
                             alt="animal thumbnail"

@@ -6,4 +6,7 @@ export default defineConfig({
     server: {
         host: "localhost",
     },
+    test: {
+        environment: "happy-dom",
+    },
 });
