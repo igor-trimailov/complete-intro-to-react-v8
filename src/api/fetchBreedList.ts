@@ -3,7 +3,7 @@ import { HOST } from "../const";
 
 const fetchBreedList: QueryFunction<
     BreedListAPIResponse,
-    ["breeds", Animal]
+    ["breeds", string]
 > = async ({ queryKey }) => {
     const animal = queryKey[1];
 

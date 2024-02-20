@@ -1,10 +1,12 @@
-import { lazy, useContext, useState } from "react";
+import { lazy, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import fetchPet from "../api/fetchPet";
+// import { useQuery } from "@tanstack/react-query";
+// import fetchPet from "../api/fetchPet";
 import Carousel from "../components/Carousel";
 import ErrorBoundary from "../components/ErrorBoundary";
-import AdoptedPetContext from "../context/AdoptedPet";
+import { useDispatch } from "react-redux";
+import { adopt } from "../store/adoptedPetSlice";
+import { useGetPetQuery } from "../store/petApiService";
 
 // this is just an example do not do this in real life
 const Modal = lazy(() => import("../components/Modal"));
@@ -14,18 +16,17 @@ const Details = () => {
     if (!id) {
         throw new Error("id not supplied? why? what are you trying to do?");
     }
-
+    const dispatch = useDispatch();
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
-    const results = useQuery(["details", id], fetchPet);
+    // const results = useQuery(["details", id], fetchPet);
+    const { isLoading, data: pet } = useGetPetQuery(id);
 
-    const [_, setAdoptedPet] = useContext(AdoptedPetContext);
+    // if (results.isError) {
+    //     return <h2>Error!!!</h2>;
+    // }
 
-    if (results.isError) {
-        return <h2>Error!!!</h2>;
-    }
-
-    if (results.isLoading) {
+    if (isLoading) {
         return (
             <div className="loading-pane">
                 <h2 className="loader">🫥</h2>
@@ -33,7 +34,7 @@ const Details = () => {
         );
     }
 
-    const pet = results?.data?.pets[0];
+    // const pet = results?.data?.pets[0];
     if (!pet) {
         throw new Error("no pet lol..");
     }
@@ -61,7 +62,7 @@ const Details = () => {
                                 <button
                                     className="mr-4 inline-block rounded bg-blue-500 px-4 py-2 text-white last:mr-0 hover:bg-blue-600"
                                     onClick={() => {
-                                        setAdoptedPet(pet);
+                                        dispatch(adopt(pet));
                                         navigate("/");
                                     }}
                                 >

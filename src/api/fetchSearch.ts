@@ -6,7 +6,7 @@ const fetchSearch: QueryFunction<
     [
         "search",
         {
-            animal: Animal;
+            animal: string;
             location: string;
             breed: string;
         },

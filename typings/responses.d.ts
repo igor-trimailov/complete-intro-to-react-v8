@@ -20,6 +20,6 @@ interface PetAPIResponse {
 }
 
 interface BreedListAPIResponse {
-    animal: Animal;
+    animal: string;
     breeds: string[];
 }
